@@ -6,8 +6,8 @@ public class Goober_AI : MonoBehaviour
 {
 
     public Transform[] waypoints; // Array of waypoints to patrol between
-    public float moveSpeed = 3f; // Speed of movement
-    public float waitTime = 1f; // Time to wait at each waypoint
+    public float moveSpeed; // Speed of movement
+    public float waitTime; // Time to wait at each waypoint
     Animator animator;
 
     private int currentWaypointIndex = 0;
@@ -95,7 +95,7 @@ public class Goober_AI : MonoBehaviour
     private void STARTRIGHTTHERE()
     {
         
-        moveSpeed = 6.5f;
+        moveSpeed = 10f;
         animator.SetBool("Alert", false);
     }
 

@@ -6,7 +6,7 @@ public class Mini_door_hor : MonoBehaviour
 {
     public BoxCollider2D lever;
     private Rigidbody2D rb;
-
+  
 
     private void Awake()
     {
@@ -20,7 +20,7 @@ public class Mini_door_hor : MonoBehaviour
         if (lever.enabled == false)
         {
            
-            rb.velocity = new Vector2(-10f, 0f);
+            rb.velocity = new Vector2(0f, 10f);
         }
         
 

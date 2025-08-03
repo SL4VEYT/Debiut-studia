@@ -67,7 +67,7 @@ public class Goober_AI : MonoBehaviour
             }
             else
             {
-                //tu powinno byæ STARTRIGHTTHERE();
+                //tu powinno byæ STARTRIGHTTHERE(); ale nie jest, nie mam pojêcia dlaczego. Kod dzia³a
             }
 
         }
@@ -89,12 +89,10 @@ public class Goober_AI : MonoBehaviour
     private void STOPRIGHTTHERE()
     {
         moveSpeed = 0f;
-        
     }
 
     private void STARTRIGHTTHERE()
     {
-        
         moveSpeed = 10f;
         animator.SetBool("Alert", false);
     }

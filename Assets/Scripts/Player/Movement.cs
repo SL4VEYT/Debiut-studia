@@ -11,7 +11,6 @@ public class Movement : MonoBehaviour
     private float jump = 9f;
     bool Crouch = false;
 
-    AudioSource AudioSource;
     bool AudioPlayingRN;
 
     public bool isKnockedBack;
@@ -37,7 +36,7 @@ public class Movement : MonoBehaviour
 
     private void Start()
     {
-        AudioSource = GetComponent<AudioSource>();
+        
 
     }
 
@@ -179,37 +178,7 @@ public class Movement : MonoBehaviour
             {
                 rb.velocity = new Vector2(horizontal * speed, rb.velocity.y); //to zostaje
 
-                if (rb.velocity.x != 0)
-                {
-                    if(rb.velocity.y == 0)
-                    {
-                        
-                        if (AudioPlayingRN == false)
-                            {
-                            AudioPlayingRN = true;
-                            AudioSource.Play();
-                            }
-                            
-                       
-                                      //system audio chyba dzia³a? troszeczke of animation
-                    }
-                    else
-                    {
-                        AudioSource.Stop();
-                        AudioPlayingRN = false;
-                    }
-                    
-                }
-                else    
-                {
-                    if(AudioPlayingRN == true)
-                    {
-                        AudioSource.Stop();
-                        AudioPlayingRN = false;
-                       
-                    }
-                       
-                }
+                
                 
             }
         }

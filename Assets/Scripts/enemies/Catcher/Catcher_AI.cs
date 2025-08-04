@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Catcher_AI : MonoBehaviour
 {
-   private bool See_Player;
+   public bool See_Player;
      Animator animator;
     public Transform playerTransform;
      SpriteRenderer spriteRenderer;
@@ -42,6 +42,9 @@ public class Catcher_AI : MonoBehaviour
     }
     private void Update()
     {
-        LookAtTarget();
+        if (See_Player == true)
+        {
+            LookAtTarget();
+        }
     }
 }

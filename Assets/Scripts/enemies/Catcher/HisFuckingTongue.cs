@@ -5,23 +5,107 @@ using UnityEngine;
 public class HisFuckingTongue : MonoBehaviour
 {
     public Transform playerTransform;
-    SpriteRenderer spriteRenderer;
+    public Catcher_AI catcher_AI;
+    private BoxCollider2D hitbox;
+
+    public float activationDelay = 2f; // Time until the hitbox activates
+    public float attackDuration = 1f; // How long the hitbox stays active
+
+    // A flag to prevent starting multiple coroutines
+    private bool isAmbushActive = false;
+
     void Awake()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        hitbox = GetComponent<BoxCollider2D>();
+        if (catcher_AI != null)
+        {
+            playerTransform = catcher_AI.playerTransform;
+        }
+        if (hitbox != null)
+        {
+            hitbox.enabled = false;
+        }
     }
-    void LookAtTarget()
+    void Update()
     {
-        Vector3 direction = playerTransform.position - transform.position;
-        float distanceX = direction.x; // Get the X distance between enemy and player
-
-        // Check if player is to the left or right of the enemy
-        spriteRenderer.flipX = distanceX < 0f;
+        // If the Catcher_AI sees the player, start the ambush sequence
+        if (catcher_AI != null && catcher_AI.See_Player)
+        {
+            if (!isAmbushActive)
+            {
+                isAmbushActive = true;
+                StartCoroutine(AmbushSequence());
+                StartCoroutine(AttackPhase());
+            }
+        }
+        else
+        {
+            // If the player is no longer seen, reset the ambush
+            if (isAmbushActive)
+            {
+                ResetAmbush();
+            }
+        }
     }
 
-    
-    private void Update()
+    private IEnumerator AmbushSequence()
     {
-        LookAtTarget();
+        // Phase 1: Invisible and following the player
+        // The hitbox is still disabled here, but the object itself moves
+        while (catcher_AI != null && catcher_AI.See_Player)
+        {
+            // Keep sticking to the player's position
+            if (playerTransform != null)
+            {
+                transform.position = playerTransform.position;
+            }
+            yield return null; // Wait for the next frame
+        }
+
+        // The player must have left the range, so the coroutine stops here
+        // If the coroutine reached this point, the player left.
+        ResetAmbush();
+    }
+
+    private IEnumerator AttackPhase()
+    {
+        // Wait for the delay before the hitbox becomes active
+        yield return new WaitForSeconds(activationDelay);
+
+        // Check if the player is still in range before attacking
+        if (catcher_AI != null && catcher_AI.See_Player)
+        {
+            // Phase 2: The hitbox activates
+            if (hitbox != null)
+            {
+                hitbox.enabled = true;
+                // You can add damage dealing logic here
+            }
+
+            // Wait for the attack duration
+            yield return new WaitForSeconds(attackDuration);
+
+            // Phase 3: The hitbox deactivates
+            ResetAmbush();
+        }
+        else
+        {
+            // If player left before activation, reset immediately
+            ResetAmbush();
+        }
+    }
+
+    private void ResetAmbush()
+    {
+        isAmbushActive = false;
+        StopAllCoroutines(); // Crucial to stop any pending ambush timers
+
+        if (hitbox != null)
+        {
+            hitbox.enabled = false;
+        }
+
+        // Return the tongue to its parent's position
+        transform.localPosition = Vector3.zero;
     }
 }

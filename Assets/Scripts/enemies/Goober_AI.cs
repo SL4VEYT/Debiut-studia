@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Goober_AI : MonoBehaviour
 {
-
+   
     public Transform[] waypoints; // Array of waypoints to patrol between
     public float moveSpeed; // Speed of movement
     public float waitTime; // Time to wait at each waypoint
@@ -17,8 +17,9 @@ public class Goober_AI : MonoBehaviour
     public bool IsAvailable = true; //¿eby nie da³o siê go stunlockowaæ
     public float CooldownDuration = 6.0f;
 
-    private void Start()
+    private void Awake()
     {
+        
         animator = GetComponent<Animator>();
     }
     private void Update()
@@ -26,6 +27,7 @@ public class Goober_AI : MonoBehaviour
         if (moving)
         {
             transform.position = Vector2.MoveTowards(transform.position, waypoints[currentWaypointIndex].position, moveSpeed * Time.deltaTime);
+            
 
             if (Vector2.Distance(transform.position, waypoints[currentWaypointIndex].position)
  < 0.1f)
@@ -50,11 +52,25 @@ public class Goober_AI : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-       
+
+        if (collision.CompareTag("Barrel") && PlayerSeen == true)
+        {
+            Barrel_Hide barrelScript = collision.GetComponent<Barrel_Hide>();
+            if (barrelScript != null)
+            {
+                barrelScript.ForceUnhide();
+                
+            }
+        }
+
+
+
         if (collision.CompareTag("Player"))
         {
             PlayerSeen = true;
-            
+            // Debug.Log("He sees the mofo"); //works
+
+
             if (IsAvailable == true)
             {
                 STOPRIGHTTHERE();
@@ -63,29 +79,12 @@ public class Goober_AI : MonoBehaviour
                 StartCoroutine(StartCooldown());
             }
 
-            if (collision.CompareTag("Barrel"))
-                {
-                Debug.Log("Goober stumbled upon a hiding spot and forced the player out!");
-                }
-
         }
 
     }
-    private void OnColliderEnter2D(Collider2D collision)
-    {
-        //Debug.Log("Goober stumbled upon a hiding spot and forced the player out!");
-        /*
-        if (collision.CompareTag("Barrel") && PlayerSeen == true)
-        {
-            Barrel_Hide barrelScript = collision.GetComponent<Barrel_Hide>();
-            if (barrelScript != null)
-            {
-                barrelScript.ForceUnhide();
-                Debug.Log("Goober stumbled upon a hiding spot and forced the player out!");
-            }
-        }
-        */
-    }
+    
+        
+    
     private void OnTriggerExit2D(Collider2D collision)
     {
 

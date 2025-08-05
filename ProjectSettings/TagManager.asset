@@ -9,6 +9,7 @@ TagManager:
   - Ledge
   - Enemy
   - dialoguebox
+  - Barrel
   layers:
   - Default
   - TransparentFX

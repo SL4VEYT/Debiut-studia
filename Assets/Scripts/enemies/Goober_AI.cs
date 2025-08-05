@@ -50,28 +50,41 @@ public class Goober_AI : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
-
+       
         if (collision.CompareTag("Player"))
         {
             PlayerSeen = true;
-            if(IsAvailable == true)
-            { 
-              STOPRIGHTTHERE();
+            
+            if (IsAvailable == true)
+            {
+                STOPRIGHTTHERE();
                 animator.SetTrigger("Alert");
                 Invoke("STARTRIGHTTHERE", 0.5f);
                 StartCoroutine(StartCooldown());
-                
-
-
             }
-            else
-            {
-                //tu powinno byæ STARTRIGHTTHERE(); ale nie jest, nie mam pojêcia dlaczego. Kod dzia³a
-            }
+
+            if (collision.CompareTag("Barrel"))
+                {
+                Debug.Log("Goober stumbled upon a hiding spot and forced the player out!");
+                }
 
         }
 
+    }
+    private void OnColliderEnter2D(Collider2D collision)
+    {
+        //Debug.Log("Goober stumbled upon a hiding spot and forced the player out!");
+        /*
+        if (collision.CompareTag("Barrel") && PlayerSeen == true)
+        {
+            Barrel_Hide barrelScript = collision.GetComponent<Barrel_Hide>();
+            if (barrelScript != null)
+            {
+                barrelScript.ForceUnhide();
+                Debug.Log("Goober stumbled upon a hiding spot and forced the player out!");
+            }
+        }
+        */
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -79,9 +92,7 @@ public class Goober_AI : MonoBehaviour
 
         if (collision.CompareTag("Player"))
         {
-            PlayerSeen = false;
-            moveSpeed = 3f;
-            
+            Invoke("forget", 2f);           
         }
 
     }
@@ -96,7 +107,11 @@ public class Goober_AI : MonoBehaviour
         moveSpeed = 10f;
         animator.SetBool("Alert", false);
     }
-
+    void forget()
+    {
+        PlayerSeen = false;
+        moveSpeed = 3f;
+    }
 
     public IEnumerator StartCooldown() //cooldown
     {

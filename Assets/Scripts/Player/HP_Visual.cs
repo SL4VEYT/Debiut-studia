@@ -23,6 +23,7 @@ public class HP_Visual : MonoBehaviour
                 Invoke("ass", 2f);
                 WasHit = false;
             }
+            spriteRenderer.sprite = drzewo4;
         }
 
         if (GameManager.gameManager.Player_health.Health == 3)

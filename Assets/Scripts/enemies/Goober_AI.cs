@@ -58,7 +58,7 @@ public class Goober_AI : MonoBehaviour
             Barrel_Hide barrelScript = collision.GetComponent<Barrel_Hide>();
             if (barrelScript != null)
             {
-                barrelScript.ForceUnhide();
+                barrelScript.ForceUnhide(); //works finally
                 
             }
         }
@@ -82,9 +82,16 @@ public class Goober_AI : MonoBehaviour
         }
 
     }
-    
-        
-    
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            STOPRIGHTTHERE();
+            Invoke("STARTRIGHTTHERE", 1f);
+        }
+    }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
 

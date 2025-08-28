@@ -5,6 +5,7 @@ using UnityEngine;
 public class Mini_door_hor : MonoBehaviour
 {
     public BoxCollider2D lever;
+    public BoxCollider2D secondlever;
     private Rigidbody2D rb;
   
 
@@ -17,7 +18,7 @@ public class Mini_door_hor : MonoBehaviour
 
 
 
-        if (lever.enabled == false)
+        if (lever.enabled == false || secondlever.enabled == false)
         {
            
             rb.velocity = new Vector2(0f, 10f);

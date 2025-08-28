@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Knockback : MonoBehaviour
 {
+    public Ladder ladderScript;
 
     public float knockbackForce = 10f;
     public float knockbackDuration = 0.5f; // Adjust duration as needed
@@ -26,6 +27,11 @@ public class Knockback : MonoBehaviour
 
             // Apply knockback force
             rb.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
+
+            if (ladderScript != null)
+            {
+                ladderScript.OFFTHELADDER();
+            }
 
             // Disable movement
             playerMovement.isKnockedBack = true;

@@ -79,9 +79,14 @@ public class Ladder : MonoBehaviour
     {
         if (collision.CompareTag("Ladder"))
         {
-            Isladder = false;
-            IsClimbing = false;
-            animator.SetBool("Climbing", false);
+            OFFTHELADDER();
         }   
+    }
+
+    public void OFFTHELADDER()
+    {
+        Isladder = false;
+        IsClimbing = false;
+        animator.SetBool("Climbing", false);
     }
 }

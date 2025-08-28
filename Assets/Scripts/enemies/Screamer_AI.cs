@@ -11,6 +11,9 @@ public class Screamer_AI : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     public BoxCollider2D hurtbox;
 
+    bool IsAvailable = true; //¿eby nie da³o siê go stunlockowaæ
+    public float CooldownDuration = 6.0f;
+
     public bool PlayerInRange = false;
     void Start()
     {
@@ -60,44 +63,62 @@ public class Screamer_AI : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            if (Crouch == false)
+            if (IsAvailable == true)
             {
-                LookAtTarget();
-                hitbox.enabled = true;
-                animator.SetBool("IsAwakened", true); 
+                if (Crouch == false)
+                {
+                    LookAtTarget();
+                    hitbox.enabled = true;
+                    animator.SetBool("IsAwakened", true);
+                }
             }
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
-        
+        if (IsAvailable == true)
+        {
             if (collision.CompareTag("Player"))
             {
-              if (Crouch == false)
-              {
-                PlayerInRange = true;
-                Invoke("Attack", 0.7f);
-              }
+                if (Crouch == false)
+                {
+                    PlayerInRange = true;
+                    Invoke("Attack", 0.7f);
+                }
             }
-
-            if (collision.CompareTag("Finish"))   //spadaj¹ca winda
+        }
+          /*  if (collision.CompareTag("Finish"))   //spadaj¹ca winda
             {
             PlayerInRange = false;
             Destroy(this);
-            }
+            } */
         
+    }
+    private void ResetState()
+    {
+        // This check prevents an error if the enemy is destroyed before the call
+        if (hurtbox != null)
+        {
+            hurtbox.enabled = false;
+        }
+
+        if (hitbox != null)
+        {
+            hitbox.enabled = false;
+        }
+
+        PlayerInRange = false;
+        animator.SetBool("IsAwakened", false);
+
+        // Start the cooldown coroutine
+        StartCoroutine(StartCooldown());
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            hurtbox.enabled = false;
-            hitbox.enabled = false;
-            PlayerInRange = false;
-            animator.SetBool("IsAwakened", false);
-            
+            ResetState();
         }
     }
     void LookAtTarget()
@@ -116,5 +137,15 @@ public class Screamer_AI : MonoBehaviour
     void Stop()
     { 
         hurtbox.enabled = false;
+    }
+
+    public IEnumerator StartCooldown() //cooldown
+    {
+        IsAvailable = false;
+
+        yield return new WaitForSeconds(CooldownDuration);
+
+        IsAvailable = true;
+
     }
 }

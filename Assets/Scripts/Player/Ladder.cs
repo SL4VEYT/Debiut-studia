@@ -8,7 +8,7 @@ public class Ladder : MonoBehaviour
     private float vertical;
     private float speed = 4f;
     private bool Isladder;
-    private bool IsClimbing;
+    public bool IsClimbing;
 
     private Transform ladder; //ai
 

@@ -5,27 +5,18 @@ using UnityEngine;
 public class Semi_Platform : MonoBehaviour
 {
     public Ladder ladderScript;
-    bool Switch = false;
+    public bool Fallthrough;
 
     void Update()
     {
-        if (Switch == false)
-        {
+        
             if (ladderScript.IsClimbing == true || Input.GetKey(KeyCode.S))
             {
-                Physics2D.IgnoreLayerCollision(11, 6, true);
-                Switch = true;
+            Fallthrough = true;
             }
-        }
-
-
-        else
-        {
-            if (Switch == true)
+            else
             {
-                Physics2D.IgnoreLayerCollision(11, 6, false);
-                Switch = false;
-            }
+            Fallthrough = false;
         }
     }
 }

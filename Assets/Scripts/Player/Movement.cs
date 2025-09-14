@@ -214,7 +214,7 @@ private void flip()
     }
    void resume2()
     {
-        speed = 4f;
+        speed = 3f;
         jump = 9f;
     }
 

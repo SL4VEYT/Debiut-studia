@@ -15,8 +15,11 @@ public class Screamer_AI : MonoBehaviour
     public float CooldownDuration = 6.0f;
 
     public bool PlayerInRange = false;
+
+    public Rigidbody2D playerRb;
     void Start()
     {
+       
         hurtbox.enabled = false;
         hitbox.enabled = false;
         
@@ -59,41 +62,65 @@ public class Screamer_AI : MonoBehaviour
         
     }
 
+    /* private void OnTriggerStay2D(Collider2D collision)
+     {
+         if (collision.CompareTag("Player"))
+         {
+             if (IsAvailable == true)
+             {
+                 if (Crouch == false)
+                 {
+                     LookAtTarget();
+                     hitbox.enabled = true;
+                     animator.SetBool("IsAwakened", true);
+                 }
+             }
+         }
+     } 
+     private void OnTriggerEnter2D(Collider2D collision)
+     {
+         if (IsAvailable == true)
+         {
+             if (collision.CompareTag("Player"))
+             {
+                 if (Crouch == false)
+                 {
+                     PlayerInRange = true;
+                     Invoke("Attack", 0.7f);
+                 }
+             }
+         }
+
+     } */
+
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && IsAvailable && !Crouch)
         {
-            if (IsAvailable == true)
+            // Check if the player is moving
+            if (IsPlayerMoving())
             {
-                if (Crouch == false)
-                {
-                    LookAtTarget();
-                    hitbox.enabled = true;
-                    animator.SetBool("IsAwakened", true);
-                }
+                PlayerInRange = true;
+                LookAtTarget();
+                animator.SetBool("IsAwakened", true);
+                Invoke("Attack", 0.7f);
             }
         }
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+
+    private bool IsPlayerMoving()
     {
-        if (IsAvailable == true)
+        if (playerRb != null)
         {
-            if (collision.CompareTag("Player"))
-            {
-                if (Crouch == false)
-                {
-                    PlayerInRange = true;
-                    Invoke("Attack", 0.7f);
-                }
-            }
+            // Check if there is any horizontal or vertical velocity
+            return Mathf.Abs(playerRb.velocity.x) > 0.1f || Mathf.Abs(playerRb.velocity.y) > 0.1f;
+            
+
         }
-          /*  if (collision.CompareTag("Finish"))   //spadaj¹ca winda
-            {
-            PlayerInRange = false;
-            Destroy(this);
-            } */
-        
+        return false;
     }
+
+
     private void ResetState()
     {
         // This check prevents an error if the enemy is destroyed before the call

@@ -10,20 +10,24 @@ public class Ladder : MonoBehaviour
     private bool Isladder;
     public bool IsClimbing;
 
-    private Transform ladder; //ai
+    private Transform ladder;
 
     Animator animator;
     GameObject player;
 
     [SerializeField] private Rigidbody2D rb;
-    // Start is called before the first frame update
+
+    public float ladderCooldownDuration = 0.5f;
+
+    private bool canGrabLadder = true;
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         animator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
+        rb = player.GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         vertical = Input.GetAxis("Vertical");
@@ -31,62 +35,58 @@ public class Ladder : MonoBehaviour
         if (Isladder && Mathf.Abs(vertical) > 0f)
         {
             IsClimbing = true;
-            
+        }
+
+        
+        if (IsClimbing && Input.GetButtonDown("Jump"))
+        {
+            OFFTHELADDER();
+            rb.velocity = new Vector2(rb.velocity.x, 9f); 
         }
     }
     private void FixedUpdate()
     {
         if (IsClimbing)
         {
+            // Lock horizontal movement
+            rb.velocity = new Vector2(0f, vertical * speed);
+            rb.gravityScale = 0f;
 
-            if(Input.GetKey(KeyCode.Space))
-            {
-                rb.gravityScale = 2f;
-                IsClimbing = false;
-                animator.SetBool("Climbing", false);
+            // Align player's X position with the ladder
+            transform.position = new Vector3(ladder.position.x, transform.position.y, transform.position.z);
 
-            }
-            else
-            {
-
-                rb.gravityScale = 0f;
-                rb.velocity = new Vector2(rb.velocity.x, vertical * speed);
-
-                // Align player's X position with the ladder
-                transform.position = new Vector3(ladder.position.x, transform.position.y, transform.position.z); //ai
-
-                animator.SetBool("Climbing", true);
-            }
+            animator.SetBool("Climbing", true);
         }
-        
         else
         {
             rb.gravityScale = 2f;
-            
         }
     }
+
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if(collision.CompareTag("Ladder"))
+        
+        if (collision.CompareTag("Ladder") && canGrabLadder)
         {
             Isladder = true;
-            ladder = collision.transform; //ai
+            ladder = collision.transform;
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Ladder"))
-        {
-            OFFTHELADDER();
-        }   
-    }
 
     public void OFFTHELADDER()
     {
         Isladder = false;
         IsClimbing = false;
         animator.SetBool("Climbing", false);
+        StartCoroutine(LadderCooldown());
+    }
+
+    private IEnumerator LadderCooldown()
+    {
+        canGrabLadder = false;
+        yield return new WaitForSeconds(ladderCooldownDuration);
+        canGrabLadder = true;
     }
 }

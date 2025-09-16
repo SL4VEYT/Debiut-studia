@@ -9926,7 +9926,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1805201218}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -642.49, y: 39.06, z: 0.031232126}
+  m_LocalPosition: {x: -575.33, y: 39.24, z: 0.031232126}
   m_LocalScale: {x: 0.529, y: 0.54211915, z: 0.529}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9992,6 +9992,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsClimbing: 0
   rb: {fileID: 1805201230}
+  ladderCooldownDuration: 1
 --- !u!114 &1805201225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10042,6 +10043,7 @@ MonoBehaviour:
   animator: {fileID: 1805201226}
   PlayerSprite: {fileID: 1805201231}
   gc: 0
+  ladderscript: {fileID: 1805201224}
   rb: {fileID: 1805201230}
   Standing_Hitbox: {fileID: 1805201229}
   groundCheck: {fileID: 1572659258}

@@ -17,10 +17,12 @@ public class Goober_AI : MonoBehaviour
     public bool IsAvailable = true; //¿eby nie da³o siê go stunlockowaæ
     public float CooldownDuration = 6.0f;
 
+    private Goober_ass Goober_ass;
+
     private void Awake()
     {
-        
         animator = GetComponent<Animator>();
+        Goober_ass = GetComponentInChildren<Goober_ass>();
     }
     private void Update()
     {
@@ -29,14 +31,15 @@ public class Goober_AI : MonoBehaviour
             transform.position = Vector2.MoveTowards(transform.position, waypoints[currentWaypointIndex].position, moveSpeed * Time.deltaTime);
             
 
-            if (Vector2.Distance(transform.position, waypoints[currentWaypointIndex].position)
- < 0.1f)
+            if (Vector2.Distance(transform.position, waypoints[currentWaypointIndex].position)< 0.1f)
             {
                 moving = false;
                 Invoke("StartMoving", waitTime);
                 Invoke("RoTaTe", 1f);
             }
         }
+        Asshole_Protector();
+
     }
 
     private void StartMoving()
@@ -129,7 +132,17 @@ public class Goober_AI : MonoBehaviour
         
     }
 
+    void Asshole_Protector()
+    {
+        if(Goober_ass.Player_Backdoor == true)
+        {
+            currentWaypointIndex = (currentWaypointIndex - 1 + waypoints.Length) % waypoints.Length;
 
+            // Immediately start moving towards the new target waypoint
+            moving = true;
+            RoTaTe();
+        }
+    }
 
 
 }

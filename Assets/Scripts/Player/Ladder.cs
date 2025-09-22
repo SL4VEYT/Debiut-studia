@@ -74,6 +74,14 @@ public class Ladder : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Ladder"))
+        {
+            OFFTHELADDER();
+        }
+    }
+
 
     public void OFFTHELADDER()
     {

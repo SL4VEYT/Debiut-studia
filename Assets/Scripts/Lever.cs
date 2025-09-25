@@ -8,11 +8,13 @@ public class Lever : MonoBehaviour
     public AudioSource a;
     public AudioClip b;
     public Sprite newSprite;
-    public SpriteRenderer spriteRenderer;
-    public BoxCollider2D hitbox;
-    void Start()
+  SpriteRenderer spriteRenderer;
+  BoxCollider2D hitbox;
+
+    private void Awake()
     {
-        
+       hitbox =  GetComponent<BoxCollider2D>();
+       spriteRenderer =  GetComponent<SpriteRenderer>();
     }
 
     public void OnTriggerStay2D(Collider2D Player)

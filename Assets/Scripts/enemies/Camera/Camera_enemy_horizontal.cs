@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class Camera_enemy_horizontal : MonoBehaviour
 {
-    private float speed = 2f;
+    public float speed = 2f;
+    public float faster_speed = 5f;
     public float range;
     public bool See_Player;
     public float chaseOffset; 
@@ -48,14 +49,15 @@ public class Camera_enemy_horizontal : MonoBehaviour
         {
             See_Player = false;
             hitbox.enabled = false;
-            speed = 2f;
+            //speed = 2f;
             Invoke("forgor", 1f);
         }
     }
     private void forgor()
     {
         playerTransform = null;
-        
+        speed = 2f;
+
     }
     private void movement()
     {
@@ -77,7 +79,7 @@ public class Camera_enemy_horizontal : MonoBehaviour
     {
         if (playerTransform != null)
         {
-            speed = 4f;
+            speed = faster_speed;
             // Calculate the desired X position based on player's X PLUS the offset
             float targetX = playerTransform.position.x + chaseOffset;
 

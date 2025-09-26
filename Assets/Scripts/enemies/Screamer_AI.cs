@@ -100,6 +100,7 @@ public class Screamer_AI : MonoBehaviour
             // Check if the player is moving
             if (IsPlayerMoving())
             {
+                hitbox.enabled = true;
                 PlayerInRange = true;
                 LookAtTarget();
                 animator.SetBool("IsAwakened", true);
@@ -129,10 +130,9 @@ public class Screamer_AI : MonoBehaviour
             hurtbox.enabled = false;
         }
 
-        if (hitbox != null)
-        {
-            hitbox.enabled = false;
-        }
+        
+            
+        
 
         PlayerInRange = false;
         animator.SetBool("IsAwakened", false);
@@ -146,6 +146,7 @@ public class Screamer_AI : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             ResetState();
+            hitbox.enabled = false;
         }
     }
     void LookAtTarget()

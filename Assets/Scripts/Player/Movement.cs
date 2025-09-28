@@ -11,6 +11,8 @@ public class Movement : MonoBehaviour
     private float jump = 9f;
     bool Crouch = false;
 
+    public Ledge_Locator ledgeLocator;
+
     bool AudioPlayingRN;
 
     public bool isKnockedBack;
@@ -36,10 +38,10 @@ public class Movement : MonoBehaviour
     [SerializeField] private LayerMask groundlayer;
     void Update()
     {
-        if (ladderscript.IsClimbing == true)
-        { horizontal = 0; }
+        if (ladderscript.IsClimbing == false && !ledgeLocator.grabbingLedge && !ledgeLocator.climbing && GameManager.gameManager.Player_health.Health != 0)
+        { horizontal = Input.GetAxisRaw("Horizontal"); }
         else
-        {horizontal = Input.GetAxisRaw("Horizontal"); }
+        { horizontal = 0; }
 
         if (Crouch == true)
         {
@@ -87,40 +89,42 @@ public class Movement : MonoBehaviour
             }
         }
 
-
-        if (IsGround())
+        if (GameManager.gameManager.Player_health.Health != 0)
         {
-        JumpAfterGrounCounter = JumpAfterGround;
-            gc = true;
-            animator.SetBool("gc", true);
-        }
-        else
-        {
-            JumpAfterGrounCounter -= Time.deltaTime;
-        }
+            if (IsGround())
+            {
+                JumpAfterGrounCounter = JumpAfterGround;
+                gc = true;
+                animator.SetBool("gc", true);
+            }
+            else
+            {
+                JumpAfterGrounCounter -= Time.deltaTime;
+            }
 
-       
 
-        if (Input.GetButtonDown("Jump"))
-        {
-            JumpBufferCounter = JumpBuffer;
-        }
-        else
-        {
-            JumpBufferCounter -= Time.deltaTime;
-        }
 
-        if (JumpBufferCounter > 0f && JumpAfterGrounCounter > 0f)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, jump);
-            JumpBufferCounter = 0f;
-        }
+            if (Input.GetButtonDown("Jump"))
+            {
+                JumpBufferCounter = JumpBuffer;
+            }
+            else
+            {
+                JumpBufferCounter -= Time.deltaTime;
+            }
 
-        if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f) //eksperymentalne opóŸnienie l¹dowania
-        {
+            if (JumpBufferCounter > 0f && JumpAfterGrounCounter > 0f)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, jump);
+                JumpBufferCounter = 0f;
+            }
 
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
-            JumpAfterGrounCounter = 0f;
+            if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f) //eksperymentalne opóŸnienie l¹dowania
+            {
+
+                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+                JumpAfterGrounCounter = 0f;
+            }
         }
 
         if (!isKnockedBack)

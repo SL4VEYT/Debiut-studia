@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class HP_Visual : MonoBehaviour
 {
-    int HP = GameManager.gameManager.Player_health.MaxHealth;
+    //int HP = GameManager.gameManager.Player_health.MaxHealth;
     public SpriteRenderer spriteRenderer;
     public Sprite drzewo4;
     public Sprite drzewo3;

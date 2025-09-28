@@ -732,7 +732,7 @@ AnimatorStateMachine:
     m_Position: {x: -140, y: 430, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -851119129516701126}
-    m_Position: {x: 640.55725, y: 373.57642, z: 0}
+    m_Position: {x: 640, y: 370, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: 7108337079603302073}
@@ -1135,10 +1135,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: YVelocity
-    m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: LedgeClimbing
+    m_ConditionEvent: LedgeHanging
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3006979749235620892}

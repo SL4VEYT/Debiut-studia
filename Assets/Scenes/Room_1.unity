@@ -492,7 +492,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d76b240311d34a047b9d8461d06202cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ledgeLocator: {fileID: 0}
+  ledgeLocator: {fileID: 156023840}
   isKnockedBack: 0
   fallthrough: 0
   animator: {fileID: 156023844}
@@ -7575,7 +7575,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eb81d8e1f455d74f913f9348ec87f06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy_camera: {fileID: 0}
+  enemy_camera: {fileID: 559429972}
 --- !u!212 &812909456
 SpriteRenderer:
   m_ObjectHideFlags: 0

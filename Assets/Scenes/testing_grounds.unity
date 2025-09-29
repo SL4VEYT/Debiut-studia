@@ -2531,6 +2531,7 @@ MonoBehaviour:
   See_Player: 0
   chaseOffset: -4.5
   hitbox: {fileID: 560294110}
+  StartLeft: 1
 --- !u!50 &560294112
 Rigidbody2D:
   serializedVersion: 4
@@ -2612,7 +2613,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 560294107}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -639.47, y: 42.27, z: 0}
+  m_LocalPosition: {x: -630.39, y: 42.27, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10397,7 +10398,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1805201218}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -605.3, y: 38.92, z: 0.031232126}
+  m_LocalPosition: {x: -644.73, y: 39.01, z: 0.031232126}
   m_LocalScale: {x: 0.529, y: 0.54211915, z: 0.529}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10520,6 +10521,7 @@ MonoBehaviour:
   rb: {fileID: 1805201230}
   Standing_Hitbox: {fileID: 1805201229}
   groundCheck: {fileID: 1572659258}
+  ceilingCheck: {fileID: 0}
   groundlayer:
     serializedVersion: 2
     m_Bits: 8

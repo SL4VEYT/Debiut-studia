@@ -16,6 +16,8 @@ public class Ledge_Locator : MonoBehaviour
     private bool moved;
     public bool climbing;
 
+    private Movement move;
+
     
     [HideInInspector]
     public bool grabbingLedge;
@@ -26,6 +28,7 @@ public class Ledge_Locator : MonoBehaviour
 
     private void Start()
     {
+        move = GetComponentInParent<Movement>();
         col = GetComponent<Collider2D>();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
@@ -40,7 +43,8 @@ public class Ledge_Locator : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
-        CheckForLedge();
+        if(!move.IsGround())
+        { CheckForLedge(); }
         LedgeHanging();
         if (GameManager.gameManager.Player_health.Health == 0)
         {

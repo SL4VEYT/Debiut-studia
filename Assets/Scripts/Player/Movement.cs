@@ -35,6 +35,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] public BoxCollider2D Standing_Hitbox; 
     [SerializeField] private Transform groundCheck;
+    [SerializeField] private Transform ceilingCheck;
     [SerializeField] private LayerMask groundlayer;
     void Update()
     {
@@ -134,25 +135,28 @@ public class Movement : MonoBehaviour
           
         if (Input.GetButtonDown("Crouch")) //kucanie (works)
         {
-            if (Crouch == true)
+            if (IsCeiling())
             {
-                //Stand up
-                Crouch = false;
-                Standing_Hitbox.enabled = true;
-                animator.SetBool("IsCrouching", false);
-                speed = 0f;
-                jump = 0f;
-                Invoke("resume", 0.5f);
-            }
-            else
-            {
-                //Crouch
-                Crouch = true;
-                Standing_Hitbox.enabled = false;
-                animator.SetBool("IsCrouching", true);
-                speed = 0f;
-                jump = 0f;
-                Invoke("resume2", 0.5f);
+                if (Crouch == true)
+                {
+                    //Stand up
+                    Crouch = false;
+                    Standing_Hitbox.enabled = true;
+                    animator.SetBool("IsCrouching", false);
+                    speed = 0f;
+                    jump = 0f;
+                    Invoke("resume", 0.5f);
+                }
+                else
+                {
+                    //Crouch
+                    Crouch = true;
+                    Standing_Hitbox.enabled = false;
+                    animator.SetBool("IsCrouching", true);
+                    speed = 0f;
+                    jump = 0f;
+                    Invoke("resume2", 0.5f);
+                }
             }
         }
 
@@ -178,10 +182,12 @@ public class Movement : MonoBehaviour
     public bool IsGround()
     {
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundlayer);
-        
-
     }
-private void flip()
+    public bool IsCeiling()
+    {
+        return Physics2D.OverlapCircle(ceilingCheck.position, 0.2f, groundlayer);
+    }
+    private void flip()
     {
         if (FacingRight && horizontal < 0f || !FacingRight && horizontal > 0f)
         {

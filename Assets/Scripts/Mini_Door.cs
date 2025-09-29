@@ -4,32 +4,43 @@ using UnityEngine;
 
 public class Mini_Door : MonoBehaviour
 {
-    // Start is called before the first frame update
+    
+
     
     public CapsuleCollider2D enemy_camera;
+    public float moveDistance = 5f; 
+    public float moveSpeed = 4f;    
+
+   
     private Rigidbody2D rb;
-    private bool a = true;
+    private Vector2 closedPosition;
+    private Vector2 openPosition;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        closedPosition = rb.position;
+        openPosition = closedPosition + new Vector2(0, moveDistance);
     }
+
     private void FixedUpdate()
     {
+        Vector2 targetPosition;
 
+       
         if (enemy_camera.enabled == true)
         {
-            rb.velocity = new Vector2(0f, -15f);
-            a = true;
+            targetPosition = closedPosition;
         }
-
-
+       
         else
-        if (a == true)
         {
-            rb.velocity = new Vector2(0f, 4f);
-            a = false;
+            targetPosition = openPosition;
         }
+
         
+        rb.position = Vector2.MoveTowards(rb.position, targetPosition, moveSpeed * Time.fixedDeltaTime);
+
+       
     }
 }

@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public bool IsPlayerHidden;
     public GameObject Player;
+    public static GameManager Fade_Manager { get; private set; }
 
     private void Update()
     {

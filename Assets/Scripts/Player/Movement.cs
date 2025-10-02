@@ -39,7 +39,8 @@ public class Movement : MonoBehaviour
     [SerializeField] private LayerMask groundlayer;
     void Update()
     {
-        if (ladderscript.IsClimbing == false && !ledgeLocator.grabbingLedge && !ledgeLocator.climbing && GameManager.gameManager.Player_health.Health != 0)
+
+        if (ladderscript.IsClimbing == false && !ledgeLocator.grabbingLedge && !ledgeLocator.climbing && GameManager.gameManager.Player_health.Health != 0 && GameManager.Instance.IsTransitioning != true)
         { horizontal = Input.GetAxisRaw("Horizontal"); }
         else
         { horizontal = 0; }
@@ -90,7 +91,7 @@ public class Movement : MonoBehaviour
             }
         }
 
-        if (GameManager.gameManager.Player_health.Health != 0)
+        if (GameManager.gameManager.Player_health.Health != 0 && GameManager.Instance.IsTransitioning != true)
         {
             if (IsGround())
             {
@@ -171,9 +172,6 @@ public class Movement : MonoBehaviour
             if (!isKnockedBack)
             {
                 rb.velocity = new Vector2(horizontal * speed, rb.velocity.y); //to zostaje
-
-                
-                
             }
         }
        
@@ -191,11 +189,12 @@ public class Movement : MonoBehaviour
     {
         if (FacingRight && horizontal < 0f || !FacingRight && horizontal > 0f)
         {
-            FacingRight = !FacingRight;
-            Vector3 localScale = transform.localScale;
-            localScale.x *= -1f;
-            transform.localScale = localScale;
-
+           
+                FacingRight = !FacingRight;
+                Vector3 localScale = transform.localScale;
+                localScale.x *= -1f;
+                transform.localScale = localScale;
+            
         }
     }
     void resume()

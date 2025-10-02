@@ -6,19 +6,28 @@ using UnityEngine.SceneManagement; // Important
 public class ScreenTransition : MonoBehaviour
 {
     public string targetSceneName;
-    private Fade_Manager fade;
-
-    private void Start()
-    {
-        fade = FindObjectOfType<Fade_Manager>();
-    }
+    public bool Traveling;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == 6)
         {
-            fade.FadeToBlack();
-            SceneManager.LoadScene(targetSceneName, LoadSceneMode.Single);
-            
+            GameManager manager = GameManager.Instance;
+
+            if (manager != null)
+            {
+
+                Traveling = true;
+
+
+                Fade_Manager fadeManager = manager.GetComponent<Fade_Manager>();
+
+                if (fadeManager != null)
+                {
+                    manager.GetComponent<Fade_Manager>().StartTransition(targetSceneName, 1.3f, 3.5f);
+                }
+            }
+
+            this.enabled = false;
         }
     }
 }

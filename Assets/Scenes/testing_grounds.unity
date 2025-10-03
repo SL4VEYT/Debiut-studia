@@ -2101,6 +2101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ss: {fileID: 541454750}
+  isStopped: 0
   target: {fileID: 1805201219}
 --- !u!114 &541454750
 MonoBehaviour:
@@ -10247,7 +10248,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1805201218}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -554.5, y: 51.72, z: 0.031232126}
+  m_LocalPosition: {x: -575.12, y: 39.22, z: 0.031232126}
   m_LocalScale: {x: 0.529, y: 0.54211915, z: 0.529}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10360,9 +10361,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d76b240311d34a047b9d8461d06202cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 6
   ledgeLocator: {fileID: 1805201222}
   isKnockedBack: 0
   fallthrough: 0
+  FacingRight: 1
   animator: {fileID: 1805201226}
   PlayerSprite: {fileID: 1805201231}
   gc: 0

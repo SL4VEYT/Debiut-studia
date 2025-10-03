@@ -11,6 +11,9 @@ public class Fade_Manager : MonoBehaviour
     private bool isFading = false;
     private float targetAlpha; // Target alpha value for the fade
 
+    private bool savedDirectionIsRight;
+    private bool shouldMoveAfterLoad = false;
+
     GameObject[] ST;
     void Start()
     {
@@ -99,28 +102,53 @@ public class Fade_Manager : MonoBehaviour
 
             private IEnumerator TransitionSequence(string sceneName, float fadeOutTime, float waitTime)
     {
+        if (shouldMoveAfterLoad)
+        {
+            ApplyAutoMove();
+        }
         GameManager.Instance.IsTransitioning = true;
-        // 1. Fade Out (using the delay from the trigger)
-        yield return new WaitForSeconds(fadeOutTime); // Wait for the 1.3 seconds delay
-        FadeToBlack(); // Sets targetAlpha = 1f
-
-        // Wait until the fade actually completes (assuming fadeSpeed is your transition time)
+        yield return new WaitForSeconds(fadeOutTime); 
+        FadeToBlack();
         yield return new WaitForSeconds(fadeSpeed);
-
-        // 2. Load the New Scene
         SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
-
-        // Wait one frame to ensure the new scene is initialized
         yield return null;
-
-        // 3. Wait for the final delay (3.5 seconds)
         yield return new WaitForSeconds(waitTime);
-
-        // 4. Fade In
-        FadeFromBlack(); // Sets targetAlpha = 0f
+        FadeFromBlack(); 
         GameManager.Instance.IsTransitioning = false;
+        shouldMoveAfterLoad = false;
     }
 
+    public void StartTransitionWithMove(string sceneName, float fadeDuration, float delayBeforeFadeIn, bool facingRight)
+    {
+        savedDirectionIsRight = facingRight;
+        shouldMoveAfterLoad = true;
 
+        StopAllCoroutines();
+        StartCoroutine(TransitionSequence(sceneName, fadeDuration, delayBeforeFadeIn));
+    }
+    private void ApplyAutoMove()
+    {
+        GameObject newPlayer = GameObject.FindGameObjectWithTag("Player");
+
+        if (newPlayer != null)
+        {
+            Rigidbody2D rb = newPlayer.GetComponent<Rigidbody2D>();
+            Movement pm = newPlayer.GetComponent<Movement>(); // Assuming your script is named PlayerMovement
+
+            if (rb != null && pm != null)
+            {
+                // Determine force based on direction (e.g., use the player's max speed)
+                float moveForce = pm.speed; // Assumes 'speed' field is accessible in PlayerMovement
+
+                // Set the horizontal velocity instantly
+                float xVelocity = savedDirectionIsRight ? moveForce : -moveForce;
+
+                rb.velocity = new Vector2(xVelocity, rb.velocity.y);
+
+                // To prevent the player from stopping right away, you might want 
+                // to disable input processing for a fraction of a second here.
+            }
+        }
+    }
 }
 

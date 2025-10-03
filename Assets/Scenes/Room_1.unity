@@ -703,9 +703,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d76b240311d34a047b9d8461d06202cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 6
   ledgeLocator: {fileID: 156023840}
   isKnockedBack: 0
   fallthrough: 0
+  FacingRight: 1
   animator: {fileID: 156023844}
   PlayerSprite: {fileID: 156023849}
   gc: 0
@@ -8695,8 +8697,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Lever: {fileID: 791858084}
   door: {fileID: 699041192}
-  animator: {fileID: 699041189}
-  sprite_drzwi: {fileID: 699041193}
 --- !u!61 &699041191
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -14465,7 +14465,7 @@ GameObject:
   - component: {fileID: 926410621}
   - component: {fileID: 926410620}
   - component: {fileID: 926410619}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Main Camera (1)
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -14485,6 +14485,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ss: {fileID: 926410620}
+  isStopped: 0
   target: {fileID: 156023850}
 --- !u!114 &926410620
 MonoBehaviour:
@@ -14789,7 +14790,7 @@ GameObject:
   - component: {fileID: 1025507873}
   - component: {fileID: 1025507875}
   - component: {fileID: 1025507874}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Currency_Counter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20225,6 +20226,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetSceneName: Room_2
   Traveling: 0
+  resetDistance: 0.5
 --- !u!61 &1473009421
 BoxCollider2D:
   m_ObjectHideFlags: 0

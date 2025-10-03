@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     GameObject Player;
     public static GameManager Instance { get; private set; }
 
+
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Player = null;
@@ -42,30 +43,6 @@ public class GameManager : MonoBehaviour
         private set;
     }
 
-  /*  private IEnumerator TransitionSequence(string sceneName, float fadeDuration, float delayBeforeFadeIn)
-    {
-        IsTransitioning = true; 
-        Fade_Manager fadeManager = GetComponent<Fade_Manager>();
-
-        if (fadeManager == null)
-        {
-            Debug.LogError("Fade_Manager component is missing on the GameManager object!");
-            IsTransitioning = false;
-            yield break; // Stop the coroutine immediately
-        }
-
-        fadeManager.FadeToBlack();
-
-        yield return new WaitForSeconds(fadeDuration);
-        SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
-        yield return null;
-        yield return new WaitForSeconds(delayBeforeFadeIn);
-        fadeManager.FadeFromBlack();
-        yield return new WaitForSeconds(fadeDuration);
-
-        IsTransitioning = false; 
-    }*/
-
     public HP_Player Player_health = new HP_Player(4,4);
 
     void Awake()
@@ -96,5 +73,4 @@ public class GameManager : MonoBehaviour
         Player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    
 }

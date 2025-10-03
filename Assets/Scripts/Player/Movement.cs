@@ -7,7 +7,7 @@ public class Movement : MonoBehaviour
 {
 
     private float horizontal;
-    private float speed = 6f;
+    public float speed = 6f;
     private float jump = 9f;
     bool Crouch = false;
 
@@ -18,7 +18,7 @@ public class Movement : MonoBehaviour
     public bool isKnockedBack;
 
     public bool fallthrough;
-    private bool FacingRight = true;
+    public bool FacingRight = true;
     public Animator animator;
     public SpriteRenderer PlayerSprite;
 

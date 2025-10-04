@@ -62,37 +62,7 @@ public class Screamer_AI : MonoBehaviour
         
     }
 
-    /* private void OnTriggerStay2D(Collider2D collision)
-     {
-         if (collision.CompareTag("Player"))
-         {
-             if (IsAvailable == true)
-             {
-                 if (Crouch == false)
-                 {
-                     LookAtTarget();
-                     hitbox.enabled = true;
-                     animator.SetBool("IsAwakened", true);
-                 }
-             }
-         }
-     } 
-     private void OnTriggerEnter2D(Collider2D collision)
-     {
-         if (IsAvailable == true)
-         {
-             if (collision.CompareTag("Player"))
-             {
-                 if (Crouch == false)
-                 {
-                     PlayerInRange = true;
-                     Invoke("Attack", 0.7f);
-                 }
-             }
-         }
-
-     } */
-
+   
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.CompareTag("Player") && IsAvailable && !Crouch)

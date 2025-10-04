@@ -6,13 +6,17 @@ public class Scren_Shake : MonoBehaviour
 {
     public float shakeDuration = 0.2f;
     public float shakeMagnitude = 0.2f;
-
+    GameObject player;
     [SerializeField] public Transform target;
     float elapsedTime = 0f;
 
     public bool isScreenShaking = false;
 
-
+    private void Awake()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+        target = player.transform;
+    }
     public void TriggerScreenShake()
     {
         isScreenShaking = true;

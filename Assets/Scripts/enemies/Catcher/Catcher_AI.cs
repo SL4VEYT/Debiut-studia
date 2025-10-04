@@ -6,10 +6,13 @@ public class Catcher_AI : MonoBehaviour
 {
    public bool See_Player;
      Animator animator;
-    public Transform playerTransform;
+    GameObject player;
+   public Transform playerTransform;
      SpriteRenderer spriteRenderer;
     void Awake()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerTransform = player.transform;
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }

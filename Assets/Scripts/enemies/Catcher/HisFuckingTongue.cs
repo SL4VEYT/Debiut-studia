@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HisFuckingTongue : MonoBehaviour
 {
-    public Transform playerTransform;
+    public Transform PlayerTransform;
     public Catcher_AI catcher_AI;
     private BoxCollider2D hitbox;
 
@@ -19,7 +19,7 @@ public class HisFuckingTongue : MonoBehaviour
         hitbox = GetComponent<BoxCollider2D>();
         if (catcher_AI != null)
         {
-            playerTransform = catcher_AI.playerTransform;
+            PlayerTransform = catcher_AI.playerTransform;
         }
         if (hitbox != null)
         {
@@ -55,9 +55,9 @@ public class HisFuckingTongue : MonoBehaviour
         while (catcher_AI != null && catcher_AI.See_Player)
         {
             // Keep sticking to the player's position
-            if (playerTransform != null)
+            if (PlayerTransform != null)
             {
-                transform.position = playerTransform.position;
+                transform.position = PlayerTransform.position;
             }
             yield return null; // Wait for the next frame
         }

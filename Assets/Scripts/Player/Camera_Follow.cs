@@ -8,12 +8,18 @@ public class Camera_Follow : MonoBehaviour
         private Vector3 offset = new Vector3(0f, 1.2f, -10f);
         private float smoothTime = 0.25f;
         private Vector3 velocity = Vector3.zero;
-
-        public bool isStopped = false;
+    GameObject player;
+    public bool isStopped = false;
 
         [SerializeField] private Transform target;
 
-        void Update()
+    private void Awake()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+        target = player.transform;
+        ss = GetComponent<Scren_Shake>();
+    }
+    void Update()
         {
             /*Vector3 targetPosition = target.position + offset;
             if (!ss.isScreenShaking)

@@ -11,7 +11,7 @@ public class Movement : MonoBehaviour
     private float jump = 9f;
     bool Crouch = false;
 
-    public Ledge_Locator ledgeLocator;
+    Ledge_Locator ledgeLocator;
 
     bool AudioPlayingRN;
 
@@ -19,8 +19,8 @@ public class Movement : MonoBehaviour
 
     public bool fallthrough;
     public bool FacingRight = true;
-    public Animator animator;
-    public SpriteRenderer PlayerSprite;
+    Animator animator;
+    SpriteRenderer PlayerSprite;
 
     private float JumpAfterGround = 0.15f;
     private float JumpAfterGrounCounter;
@@ -30,13 +30,21 @@ public class Movement : MonoBehaviour
     private float JumpBuffer = 0.2f;
     private float JumpBufferCounter;
 
-    public Ladder ladderscript;
+    Ladder ladderscript;
 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] public BoxCollider2D Standing_Hitbox; 
     [SerializeField] private Transform groundCheck;
     [SerializeField] private Transform ceilingCheck;
     [SerializeField] private LayerMask groundlayer;
+
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+        PlayerSprite = GetComponent<SpriteRenderer>();
+        ladderscript = GetComponent<Ladder>();
+        ledgeLocator = GetComponent<Ledge_Locator>();
+    }
     void Update()
     {
 
@@ -136,7 +144,7 @@ public class Movement : MonoBehaviour
           
         if (Input.GetButtonDown("Crouch")) //kucanie (works)
         {
-            if (IsCeiling())
+            if (!IsCeiling())
             {
                 if (Crouch == true)
                 {

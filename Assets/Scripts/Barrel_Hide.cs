@@ -5,7 +5,7 @@ using UnityEngine;
 public class Barrel_Hide : MonoBehaviour
 {
     bool PlayerTouch = false;
-    public GameObject player;
+    GameObject player;
     public bool touch;
     private bool isPlayerHiding = false;
 
@@ -13,6 +13,11 @@ public class Barrel_Hide : MonoBehaviour
     public bool IsHiding()
     {
         return isPlayerHiding;
+    }
+
+    private void Awake()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     public void OnTriggerEnter2D(Collider2D Player)
@@ -61,7 +66,7 @@ public class Barrel_Hide : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (PlayerTouch == true && Input.GetKey(KeyCode.F))
+        if (PlayerTouch == true && Input.GetButtonDown("Interact"))
         {
             
             player.GetComponent<SpriteRenderer>().enabled = false;

@@ -4,13 +4,9 @@ using UnityEngine;
 
 public class Semi_Platform : MonoBehaviour
 {
-    Ladder ladderScript;
+    public Ladder ladderScript;
     public bool Fallthrough;
 
-    private void Awake()
-    {
-        ladderScript = GetComponent<Ladder>();
-    }
     void Update()
     {
         
@@ -21,6 +17,6 @@ public class Semi_Platform : MonoBehaviour
             else
             {
             Fallthrough = false;
-            }
+        }
     }
 }

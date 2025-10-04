@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class Semi_Platform_detector : MonoBehaviour
 {
-    Semi_Platform Asshole;
+    public Semi_Platform Asshole;
     public BoxCollider2D platform;
     bool donotclip = false;
-
-    private void Awake()
-    {
-        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
-        Asshole = playerObject.GetComponent<Semi_Platform>();
-    }
+     
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.layer == 6)
@@ -26,9 +21,7 @@ public class Semi_Platform_detector : MonoBehaviour
             else
             {
                 if (donotclip == false)
-                {
-                    platform.enabled = true; 
-                } 
+                {platform.enabled = true; } 
             }
         }
     }

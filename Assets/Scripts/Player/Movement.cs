@@ -11,7 +11,7 @@ public class Movement : MonoBehaviour
     private float jump = 9f;
     bool Crouch = false;
 
-    Ledge_Locator ledgeLocator;
+    public Ledge_Locator ledgeLocator;
 
     bool AudioPlayingRN;
 
@@ -19,8 +19,8 @@ public class Movement : MonoBehaviour
 
     public bool fallthrough;
     public bool FacingRight = true;
-    Animator animator;
-    SpriteRenderer PlayerSprite;
+    public Animator animator;
+    public SpriteRenderer PlayerSprite;
 
     private float JumpAfterGround = 0.15f;
     private float JumpAfterGrounCounter;
@@ -30,21 +30,13 @@ public class Movement : MonoBehaviour
     private float JumpBuffer = 0.2f;
     private float JumpBufferCounter;
 
-    Ladder ladderscript;
+    public Ladder ladderscript;
 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] public BoxCollider2D Standing_Hitbox; 
     [SerializeField] private Transform groundCheck;
     [SerializeField] private Transform ceilingCheck;
     [SerializeField] private LayerMask groundlayer;
-
-    private void Awake()
-    {
-        animator = GetComponent<Animator>();
-        ledgeLocator = GetComponent<Ledge_Locator>();
-        PlayerSprite = GetComponent<SpriteRenderer>();
-        ladderscript = GetComponent<Ladder>();
-    }
     void Update()
     {
 

@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Knockback : MonoBehaviour
 {
-    public Ladder ladderScript;
+    Ladder ladderScript;
 
     public float knockbackForce = 10f;
-    public float knockbackDuration = 0.5f; // Adjust duration as needed
+    public float knockbackDuration = 0.5f;
 
     private Rigidbody2D rb;
     private Movement playerMovement;
@@ -15,7 +15,8 @@ public class Knockback : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        playerMovement = GetComponent<Movement>(); // Assuming both scripts are on the same GameObject
+        ladderScript = GetComponent<Ladder>();
+        playerMovement = GetComponent<Movement>(); 
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -32,13 +33,9 @@ public class Knockback : MonoBehaviour
             {
                 ladderScript.OFFTHELADDER();
             }
-
-            // Disable movement
             playerMovement.isKnockedBack = true;
 
             Physics2D.IgnoreLayerCollision(8, 6, true); //eksperyment
-
-            // Start a coroutine to re-enable movement after duration
             StartCoroutine(EnableMovementAfterTime(knockbackDuration));
         }
     }

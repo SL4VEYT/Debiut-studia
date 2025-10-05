@@ -36,7 +36,7 @@ public class Knockback : MonoBehaviour
             // Disable movement
             playerMovement.isKnockedBack = true;
 
-            Physics2D.IgnoreLayerCollision(8, 6, true); //eksperyment
+          //  Physics2D.IgnoreLayerCollision(8, 6, true); //eksperyment
 
             // Start a coroutine to re-enable movement after duration
             StartCoroutine(EnableMovementAfterTime(knockbackDuration));
@@ -47,7 +47,7 @@ public class Knockback : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         playerMovement.isKnockedBack = false;
-        Physics2D.IgnoreLayerCollision(8, 6, false);
+       // Physics2D.IgnoreLayerCollision(8, 6, false);
     }
 
 

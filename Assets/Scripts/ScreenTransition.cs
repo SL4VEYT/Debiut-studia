@@ -49,16 +49,14 @@ public class ScreenTransition : MonoBehaviour
                 if (fadeManager != null)
                 {
                     bool facingRight = playerMovementScript != null ? playerMovementScript.FacingRight : true;
-                    //manager.GetComponent<Fade_Manager>().StartTransition(targetSceneName, 1.3f, 2f, );
                     fadeManager.StartTransitionWithMove(
                    targetSceneName,
                    1.3f,
                    3.5f,
-                   facingRight // Pass the direction
+                   facingRight 
                );
                 }
             }
-            /*this.enabled = false;*/
         }  
     }
 
@@ -74,7 +72,6 @@ public class ScreenTransition : MonoBehaviour
 
         if (!kamera.isStopped)
         {
-            // If camera reaches the boundary, stop it.
             if (cameraRightEdgeX >= boundaryX)
             {
                 kamera.isStopped = true;

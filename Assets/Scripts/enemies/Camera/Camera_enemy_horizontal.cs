@@ -5,6 +5,13 @@ using UnityEngine;
 
 public class Camera_enemy_horizontal : MonoBehaviour
 {
+
+    public Transform[] waypoints;
+    public float waitTime = 1f;
+    private int currentWaypointIndex = 0;
+    private bool isPatrolling = true; 
+    private bool isWaiting = false;
+
     public float speed = 2f;
     public float faster_speed = 5f;
     public float range;
@@ -19,9 +26,19 @@ public class Camera_enemy_horizontal : MonoBehaviour
     float effectiveoffset;
 
     private Transform playerTransform;
+    private float minPatrolX;
+    private float maxPatrolX;
 
     void Awake()
     {
+
+        if (waypoints == null || waypoints.Length == 0)
+        {
+            Debug.LogError("Camera Enemy is missing waypoints!");
+            enabled = false;
+            return;
+        }
+
         startingX = transform.position.x;
         if (StartLeft)
         {
@@ -38,17 +55,87 @@ public class Camera_enemy_horizontal : MonoBehaviour
             direction = 1;
             effectiveRange = range;// Start moving to the right (default)
         }
+
+        minPatrolX = float.MaxValue;
+        maxPatrolX = float.MinValue;
+
+        foreach (Transform waypoint in waypoints)
+        {
+            if (waypoint.position.x < minPatrolX)
+            {
+                minPatrolX = waypoint.position.x;
+            }
+            if (waypoint.position.x > maxPatrolX)
+            {
+                maxPatrolX = waypoint.position.x;
+            }
+        }
+    }
+
+    void Update()
+    {
+        if (!See_Player)
+        {
+            Patrol();
+        }
     }
 
     void FixedUpdate()
     {
-        if (See_Player == false)
+        if (See_Player)
         {
-            movement();
+            Chase();
+        }
+    }
+
+    private void Patrol()
+    {
+        if (isPatrolling && !isWaiting)
+        {
+            Vector2 targetPosition = waypoints[currentWaypointIndex].position;
+            transform.position = Vector2.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+            if (Vector2.Distance(transform.position, targetPosition) < 0.1f)
+            {
+                isWaiting = true; // Stop movement
+                Invoke(nameof(StartPatrolling), waitTime);
+            }
+        }
+    }
+
+    private void StartPatrolling()
+    {
+        // Select the next waypoint index
+        currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
+        isWaiting = false; // Resume movement
+    }
+
+    private void Chase()
+    {
+        if (playerTransform != null)
+        {
+            // Stop patrol movement while chasing
+            isWaiting = false;
+            isPatrolling = false;
+
+            // 1. Calculate the initial target X position (player's X + offset)
+            float directionSign = Mathf.Sign(playerTransform.position.x - transform.position.x);
+            float effectiveOffset = chaseOffset * directionSign;
+
+            float targetX = playerTransform.position.x + effectiveOffset;
+
+            // --- CRITICAL FIX: Clamp the target position to the rail bounds ---
+            targetX = Mathf.Clamp(targetX, minPatrolX, maxPatrolX);
+
+            Vector2 targetPosition = new Vector2(targetX, transform.position.y);
+
+            // 2. Move towards the clamped target X position
+            transform.position = Vector2.MoveTowards(transform.position, targetPosition, faster_speed * Time.deltaTime);
         }
         else
         {
-            chase();
+            See_Player = false;
+            isPatrolling = true;
+            hitbox.enabled = false;
         }
     }
 
@@ -56,120 +143,29 @@ public class Camera_enemy_horizontal : MonoBehaviour
     {
         if (collision.gameObject.layer == 6) 
         {
-            See_Player = true;
-            hitbox.enabled = true;
-            playerTransform = collision.gameObject.transform;
+            if (!See_Player)
+            {
+                See_Player = true;
+                hitbox.enabled = true;
+                playerTransform = collision.gameObject.transform;
+                CancelInvoke(nameof(StartPatrolling));
+            }
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 6) 
+        if (collision.gameObject.layer == 6)
         {
-            See_Player = false;
-            hitbox.enabled = false;
-            //speed = 2f;
-            Invoke("forgor", 1f);
+            Invoke(nameof(forgor), 1f);
         }
     }
+
     private void forgor()
     {
+        See_Player = false;
+        isPatrolling = true;
         playerTransform = null;
-        speed = 2f;
-
+        hitbox.enabled = false;
     }
-    private void movement()
-    {
-        /*transform.Translate(Vector2.right * speed * Time.deltaTime * direction);
-
-       
-        if (transform.position.x < startingX || transform.position.x > startingX + range)
-        {
-            direction *= -1;
-           
-            if (transform.position.x < startingX)
-                transform.position = new Vector2(startingX, transform.position.y);
-            else if (transform.position.x > startingX + range)
-                transform.position = new Vector2(startingX + range, transform.position.y);
-        }
-        */
-        transform.Translate(Vector2.right * speed * Time.deltaTime * direction);
-
-
-
-
-        if (transform.position.x < startingX + Mathf.Min(0, effectiveRange) ||
-        transform.position.x > startingX + Mathf.Max(0, effectiveRange))
-        {
-            direction *= -1;
-
-            // Snap to the correct boundary (either the start or the end of the range)
-            // Check if we hit the left boundary (startingX + negative range)
-            if (transform.position.x < startingX)
-            {
-                transform.position = new Vector2(startingX + Mathf.Min(0, effectiveRange), transform.position.y);
-            }
-            // Check if we hit the right boundary (startingX + positive range)
-            else if (transform.position.x > startingX)
-            {
-                transform.position = new Vector2(startingX + Mathf.Max(0, effectiveRange), transform.position.y);
-            }
-        }
-    }
-
-    private void chase()
-    {
-        /* if (playerTransform != null)
-         {
-             speed = faster_speed;
-             // Calculate the desired X position based on player's X PLUS the offset
-             float targetX = playerTransform.position.x + effectiveoffset;
-
-             // Clamp the targetX within the enemy's patrol range
-             targetX = Mathf.Clamp(targetX, startingX, startingX + range);
-
-             // Calculate the horizontal direction to the clamped target X
-             Vector2 directionToClampedTarget = new Vector2(targetX - transform.position.x, 0).normalized;
-
-             // If the enemy is very close to the clamped target X, stop horizontal movement
-             if (Mathf.Abs(targetX - transform.position.x) < 0.05f) // Small threshold to stop movement
-             {
-                 directionToClampedTarget.x = 0;
-             }
-
-             // Move horizontally towards the clamped target X
-             transform.Translate(directionToClampedTarget * speed * Time.deltaTime);
-
-         }
-     */
-
-        if (playerTransform != null)
-        {
-            speed = faster_speed;
-
-            // Use the pre-calculated effectiveoffset (which is negative when facing left)
-            float targetX = playerTransform.position.x + effectiveoffset;
-
-            // --- CORRECTED CLAMPING LOGIC ---
-            // Clamp the targetX within the enemy's patrol range using Min/Max
-            float minBoundary = startingX + Mathf.Min(0, effectiveRange);
-            float maxBoundary = startingX + Mathf.Max(0, effectiveRange);
-
-            targetX = Mathf.Clamp(targetX, minBoundary, maxBoundary);
-            // ---------------------------------
-
-            // Calculate the horizontal direction to the clamped target X
-            Vector2 directionToClampedTarget = new Vector2(targetX - transform.position.x, 0).normalized;
-
-            // If the enemy is very close to the clamped target X, stop horizontal movement
-            if (Mathf.Abs(targetX - transform.position.x) < 0.05f)
-            {
-                directionToClampedTarget.x = 0;
-            }
-
-            // Move horizontally towards the clamped target X
-            transform.Translate(directionToClampedTarget * speed * Time.deltaTime);
-        }
-    }
-
 }

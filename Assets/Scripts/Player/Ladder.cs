@@ -9,6 +9,7 @@ public class Ladder : MonoBehaviour
     private float speed = 4f;
     private bool Isladder;
     public bool IsClimbing;
+    private Movement move;
 
     private Transform ladder;
 
@@ -23,6 +24,7 @@ public class Ladder : MonoBehaviour
 
     void Start()
     {
+        move = GetComponent<Movement>();
         player = GameObject.FindGameObjectWithTag("Player");
         animator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
         rb = player.GetComponent<Rigidbody2D>();
@@ -32,11 +34,15 @@ public class Ladder : MonoBehaviour
     {
         vertical = Input.GetAxis("Vertical");
 
-        if (Isladder && Mathf.Abs(vertical) > 0f)
+        if (Isladder && Mathf.Abs(vertical) > 0f && !move.Crouch)
         {
             IsClimbing = true;
         }
 
+        if(move.IsGround() && Input.GetAxisRaw("Horizontal") != 0)
+        {
+                OFFTHELADDER();
+        }
         
         if (IsClimbing && Input.GetButtonDown("Jump"))
         {

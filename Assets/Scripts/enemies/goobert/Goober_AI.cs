@@ -5,16 +5,16 @@ using UnityEngine;
 public class Goober_AI : MonoBehaviour
 {
    
-    public Transform[] waypoints; // Array of waypoints to patrol between
-    public float moveSpeed; // Speed of movement
-    public float waitTime; // Time to wait at each waypoint
+    public Transform[] waypoints; 
+    public float moveSpeed; 
+    public float waitTime; 
     Animator animator;
 
     private int currentWaypointIndex = 0;
     private bool moving = true;
     private bool PlayerSeen = false;
 
-    public bool IsAvailable = true; //¿eby nie da³o siê go stunlockowaæ
+    public bool IsAvailable = true; 
     public float CooldownDuration = 6.0f;
 
     private Goober_ass Goober_ass;
@@ -35,7 +35,7 @@ public class Goober_AI : MonoBehaviour
             {
                 moving = false;
                 Invoke("StartMoving", waitTime);
-                Invoke("RoTaTe", 1f);
+                Invoke("RoTaTe", waitTime);
             }
         }
         Asshole_Protector();

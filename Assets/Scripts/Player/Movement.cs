@@ -9,7 +9,7 @@ public class Movement : MonoBehaviour
     private float horizontal;
     public float speed = 6f;
     private float jump = 9f;
-    bool Crouch = false;
+    public bool Crouch = false;
 
     Ledge_Locator ledgeLocator;
 

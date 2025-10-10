@@ -704,14 +704,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 6
-  ledgeLocator: {fileID: 156023840}
+  Crouch: 0
   isKnockedBack: 0
   fallthrough: 0
   FacingRight: 1
-  animator: {fileID: 156023844}
-  PlayerSprite: {fileID: 156023849}
   gc: 0
-  ladderscript: {fileID: 156023842}
   rb: {fileID: 156023848}
   Standing_Hitbox: {fileID: 156023847}
   groundCheck: {fileID: 1467644080}
@@ -1157,10 +1154,10 @@ EdgeCollider2D:
   m_EdgeRadius: 0
   m_Points:
   - {x: 1.6048816, y: -0.5014534}
-  - {x: 5.4099503, y: -3.4004722}
-  - {x: 7.092598, y: -4.408411}
-  - {x: 5.292961, y: -4.4454846}
-  - {x: 2.2502441, y: -4.418962}
+  - {x: 5.318535, y: -3.4614177}
+  - {x: 6.818344, y: -4.7131386}
+  - {x: 5.414852, y: -5.0549397}
+  - {x: 2.7378082, y: -4.7541614}
   - {x: 1.1781842, y: -1.4542141}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
@@ -1194,6 +1191,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da1cc4290e32e04a82b771abf064139, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waypoints: []
+  waitTime: 1
   speed: 3
   faster_speed: 5
   range: 14
@@ -1543,7 +1542,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ab3cae03c59a354ebffd64e5dc893e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 156023837}
   touch: 0
 --- !u!212 &257430116
 SpriteRenderer:
@@ -7552,6 +7550,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da1cc4290e32e04a82b771abf064139, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waypoints: []
+  waitTime: 1
   speed: 2
   faster_speed: 5
   range: 10
@@ -8462,7 +8462,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ab3cae03c59a354ebffd64e5dc893e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 156023837}
   touch: 0
 --- !u!212 &679518332
 SpriteRenderer:
@@ -20364,6 +20363,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da1cc4290e32e04a82b771abf064139, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waypoints: []
+  waitTime: 1
   speed: 2
   faster_speed: 5
   range: 10

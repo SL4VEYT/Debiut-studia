@@ -20223,7 +20223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c4196df46cb25f4fbef64cfe938a589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetSceneName: Room_2
+  targetSceneName: Room_3
   Traveling: 0
   resetDistance: 0.5
 --- !u!61 &1473009421

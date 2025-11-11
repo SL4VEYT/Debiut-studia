@@ -74,7 +74,7 @@ public class Barrel_Hide : MonoBehaviour
             isPlayerHiding = true;
 
         }
-        if (isPlayerHiding && (PlayerTouch == false || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A)))
+        if (isPlayerHiding && (PlayerTouch == false || Input.GetButtonDown("Jump") || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A)))
 
         {
                 

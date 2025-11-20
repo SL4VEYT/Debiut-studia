@@ -16,7 +16,7 @@ public class Healing_point : MonoBehaviour
     // Update is called once per frame
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player") && Input.GetKey(KeyCode.E))
+        if(collision.CompareTag("Player") && Input.GetButtonDown("Interact"))
         {
             Player_Checkpoints.Startpos = transform.position;
             animator.SetBool("Used", true);

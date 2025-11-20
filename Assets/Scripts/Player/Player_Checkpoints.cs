@@ -10,7 +10,6 @@ public class Player_Checkpoints : MonoBehaviour
     
     void Start()
     {
-       
         Startpos = transform.position;
     }
 
@@ -22,7 +21,7 @@ public class Player_Checkpoints : MonoBehaviour
             if (deathonlyonce == true)
             { animator.SetBool("IsDead", true); }
             deathonlyonce = false;
-            Invoke("Die", 0.1f);
+            Invoke("Die", 1f);
             Invoke("Respawn", 2.5f);
             
         }
@@ -37,5 +36,6 @@ public class Player_Checkpoints : MonoBehaviour
         deathonlyonce = true;
         GameManager.gameManager.Player_health.Health = GameManager.gameManager.Player_health.MaxHealth;
         transform.position = Startpos;
+ 
     }
 }

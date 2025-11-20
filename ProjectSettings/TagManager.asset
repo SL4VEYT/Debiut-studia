@@ -11,6 +11,7 @@ TagManager:
   - dialoguebox
   - Barrel
   - SCreenT
+  - Door
   layers:
   - Default
   - TransparentFX

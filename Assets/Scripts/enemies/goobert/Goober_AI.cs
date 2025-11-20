@@ -18,11 +18,13 @@ public class Goober_AI : MonoBehaviour
     public float CooldownDuration = 6.0f;
 
     private Goober_ass Goober_ass;
+    private walldetector walldetector;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
         Goober_ass = GetComponentInChildren<Goober_ass>();
+        walldetector = GetComponentInChildren<walldetector>();
     }
     private void Update()
     {
@@ -134,7 +136,7 @@ public class Goober_AI : MonoBehaviour
 
     void Asshole_Protector()
     {
-        if(Goober_ass.Player_Backdoor == true)
+        if(Goober_ass.Player_Backdoor == true || walldetector.Iswall == true)
         {
             currentWaypointIndex = (currentWaypointIndex - 1 + waypoints.Length) % waypoints.Length;
 

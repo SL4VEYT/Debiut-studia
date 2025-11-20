@@ -103,6 +103,10 @@ public class Movement : MonoBehaviour
         {
             if (IsGround())
             {
+               /* if(GameManager.gameManager.Player_health.Health == 0)
+                {
+                    rb.velocity = Vector2.zero;
+                } */
                 JumpAfterGrounCounter = JumpAfterGround;
                 gc = true;
                 animator.SetBool("gc", true);
@@ -134,6 +138,13 @@ public class Movement : MonoBehaviour
 
                 rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
                 JumpAfterGrounCounter = 0f;
+            }
+        }
+        else
+        {
+            if (GameManager.gameManager.Player_health.Health == 0 && IsGround())
+            {
+                rb.velocity = Vector2.zero;
             }
         }
 

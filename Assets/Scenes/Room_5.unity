@@ -1435,7 +1435,7 @@ GameObject:
   - component: {fileID: 300481116}
   - component: {fileID: 300481115}
   m_Layer: 3
-  m_Name: IMG_1236
+  m_Name: Big_Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16005,8 +16005,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1879257925}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 240.51, y: -22.18, z: 0}
-  m_LocalScale: {x: 0.7134903, y: 0.7134903, z: 0.7134903}
+  m_LocalPosition: {x: 240.5555, y: -22.18, z: 0}
+  m_LocalScale: {x: 0.7235505, y: 0.7134903, z: 0.7134903}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 729765675}

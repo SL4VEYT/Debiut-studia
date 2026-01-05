@@ -10,6 +10,7 @@ public class Screamer_AI : MonoBehaviour
     public Transform playerTransform;
     public SpriteRenderer spriteRenderer;
     public BoxCollider2D hurtbox;
+    public bool isonloudfloor;
 
     bool IsAvailable = true; //¿eby nie da³o siê go stunlockowaæ
     public float CooldownDuration = 6.0f;
@@ -65,8 +66,17 @@ public class Screamer_AI : MonoBehaviour
    
     private void OnTriggerStay2D(Collider2D collision)
     {
+        if (collision.CompareTag("Player") && isonloudfloor && IsAvailable)
+        {
+            hitbox.enabled = true;
+            PlayerInRange = true;
+            LookAtTarget();
+            animator.SetBool("IsAwakened", true);
+        }
+        else
         if (collision.CompareTag("Player") && IsAvailable && !Crouch)
         {
+
             // Check if the player is moving
             if (IsPlayerMoving())
             {
@@ -74,6 +84,7 @@ public class Screamer_AI : MonoBehaviour
                 PlayerInRange = true;
                 LookAtTarget();
                 animator.SetBool("IsAwakened", true);
+                animator.SetBool("ATTACK", true);
                 Invoke("Attack", 0.7f);
             }
         }
@@ -100,12 +111,9 @@ public class Screamer_AI : MonoBehaviour
             hurtbox.enabled = false;
         }
 
-        
-            
-        
-
         PlayerInRange = false;
         animator.SetBool("IsAwakened", false);
+        animator.SetBool("ATTACK", false);
 
         // Start the cooldown coroutine
         StartCoroutine(StartCooldown());

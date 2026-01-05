@@ -12,6 +12,7 @@ TagManager:
   - Barrel
   - SCreenT
   - Door
+  - LOUD
   layers:
   - Default
   - TransparentFX

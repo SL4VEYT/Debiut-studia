@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 
@@ -32,6 +33,8 @@ public class Movement : MonoBehaviour
 
     Ladder ladderscript;
 
+    public BoxCollider2D loud;
+
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] public BoxCollider2D Standing_Hitbox; 
     [SerializeField] private Transform groundCheck;
@@ -44,6 +47,7 @@ public class Movement : MonoBehaviour
         PlayerSprite = GetComponent<SpriteRenderer>();
         ladderscript = GetComponent<Ladder>();
         ledgeLocator = GetComponent<Ledge_Locator>();
+        loud.enabled = false;
     }
     void Update()
     {
@@ -225,6 +229,14 @@ public class Movement : MonoBehaviour
     {
         speed = 3f;
         jump = 9f;
+    }
+
+    public void OnTriggerStay2D(Collider2D enemy) //loudfloor trigger
+    {
+        if (enemy.CompareTag("LOUD"))
+        {
+            loud.enabled = true;
+        }
     }
 
 }

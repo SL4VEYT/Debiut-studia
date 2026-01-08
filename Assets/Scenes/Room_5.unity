@@ -1276,6 +1276,7 @@ MonoBehaviour:
   playerTransform: {fileID: 1767309719}
   spriteRenderer: {fileID: 282438511}
   hurtbox: {fileID: 282438508}
+  isonloudfloor: 0
   CooldownDuration: 2
   PlayerInRange: 0
   playerRb: {fileID: 1767309730}
@@ -15064,7 +15065,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1767309718}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 228.37, y: -21.74, z: 0}
+  m_LocalPosition: {x: 256.8, y: -33.8, z: 0}
   m_LocalScale: {x: 0.529, y: 0.54211915, z: 0.529}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -15198,6 +15199,7 @@ MonoBehaviour:
   fallthrough: 0
   FacingRight: 1
   gc: 0
+  loud: {fileID: 0}
   rb: {fileID: 1767309730}
   Standing_Hitbox: {fileID: 1767309729}
   groundCheck: {fileID: 1796944284}

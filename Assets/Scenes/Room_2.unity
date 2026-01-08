@@ -493,6 +493,7 @@ MonoBehaviour:
   fallthrough: 0
   FacingRight: 1
   gc: 0
+  loud: {fileID: 0}
   rb: {fileID: 454162757}
   Standing_Hitbox: {fileID: 454162756}
   groundCheck: {fileID: 1383764523}
@@ -954,8 +955,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 766772432}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.65210056, y: -61.4711, z: 0}
-  m_LocalScale: {x: 15.149434, y: 1.8072076, z: 1}
+  m_LocalPosition: {x: 14.9006, y: -61.4711, z: 0}
+  m_LocalScale: {x: 46.254253, y: 1.8072076, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

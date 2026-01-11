@@ -13,6 +13,7 @@ TagManager:
   - SCreenT
   - Door
   - LOUD
+  - loudradius
   layers:
   - Default
   - TransparentFX

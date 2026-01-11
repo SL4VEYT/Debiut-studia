@@ -7,7 +7,7 @@ public class Goober_ass : MonoBehaviour
     public bool Player_Backdoor;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") || collision.CompareTag("loudradius"))
         {
             Player_Backdoor = true;
         }
@@ -15,7 +15,7 @@ public class Goober_ass : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") || collision.CompareTag("loudradius"))
         {
             Player_Backdoor = false;
         }

@@ -33,7 +33,7 @@ public class Movement : MonoBehaviour
 
     Ladder ladderscript;
 
-    public BoxCollider2D loud;
+    public bool loud;
 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] public BoxCollider2D Standing_Hitbox; 
@@ -47,7 +47,7 @@ public class Movement : MonoBehaviour
         PlayerSprite = GetComponent<SpriteRenderer>();
         ladderscript = GetComponent<Ladder>();
         ledgeLocator = GetComponent<Ledge_Locator>();
-        loud.enabled = false;
+        loud = false;
     }
     void Update()
     {
@@ -235,7 +235,15 @@ public class Movement : MonoBehaviour
     {
         if (enemy.CompareTag("LOUD"))
         {
-            loud.enabled = true;
+            loud = true;
+        }
+    }
+    public void OnTriggerExit2D(Collider2D enemy)
+
+    {
+        if (enemy.CompareTag("LOUD"))
+        {
+            loud = false;
         }
     }
 
